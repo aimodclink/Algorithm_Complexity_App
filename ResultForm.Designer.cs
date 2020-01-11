@@ -34,6 +34,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.cycleTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.minMaxComplexityTableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.SuspendLayout();
             // 
             // label1
@@ -73,11 +75,12 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(499, 21);
+            this.label5.Location = new System.Drawing.Point(21, 188);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(110, 13);
             this.label5.TabIndex = 4;
             this.label5.Text = "Обнаружены циклы:";
+            this.label5.Visible = false;
             // 
             // label6
             // 
@@ -87,11 +90,39 @@
             this.label6.Size = new System.Drawing.Size(0, 13);
             this.label6.TabIndex = 5;
             // 
+            // cycleTableLayoutPanel
+            // 
+            this.cycleTableLayoutPanel.ColumnCount = 1;
+            this.cycleTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.cycleTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.cycleTableLayoutPanel.Location = new System.Drawing.Point(151, 188);
+            this.cycleTableLayoutPanel.Name = "cycleTableLayoutPanel";
+            this.cycleTableLayoutPanel.RowCount = 2;
+            this.cycleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.cycleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.cycleTableLayoutPanel.Size = new System.Drawing.Size(332, 323);
+            this.cycleTableLayoutPanel.TabIndex = 6;
+            // 
+            // minMaxComplexityTableLayout
+            // 
+            this.minMaxComplexityTableLayout.ColumnCount = 1;
+            this.minMaxComplexityTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.minMaxComplexityTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.minMaxComplexityTableLayout.Location = new System.Drawing.Point(503, 188);
+            this.minMaxComplexityTableLayout.Name = "minMaxComplexityTableLayout";
+            this.minMaxComplexityTableLayout.RowCount = 2;
+            this.minMaxComplexityTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.minMaxComplexityTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.minMaxComplexityTableLayout.Size = new System.Drawing.Size(332, 323);
+            this.minMaxComplexityTableLayout.TabIndex = 7;
+            // 
             // ResultForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(865, 523);
+            this.Controls.Add(this.minMaxComplexityTableLayout);
+            this.Controls.Add(this.cycleTableLayoutPanel);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -113,5 +144,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TableLayoutPanel cycleTableLayoutPanel;
+        private System.Windows.Forms.TableLayoutPanel minMaxComplexityTableLayout;
     }
 }

@@ -17,7 +17,7 @@ namespace Algorithm_Complexity_App {
         ResourceManager res_manager;    // declare Resource manager to access to specific cultureinfo
         CultureInfo culture;
 
-        Graph graph;
+        public Graph graph;
         string exit_text_string, exit_caption_string;
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -92,7 +92,7 @@ namespace Algorithm_Complexity_App {
         private string DefaultText = String.Format("{0:f}", 0.0);
         private string DefaultTextInt = String.Format("{0:D}", 0);
         // создает текстарию и назначает ему кое какие свойства
-        private TextBox InitTextBox(bool readOnly) {
+        public TextBox InitTextBox(bool readOnly) {
             TextBox textBox = new TextBox();
             textBox.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             textBox.Text = DefaultText;
@@ -103,7 +103,7 @@ namespace Algorithm_Complexity_App {
             }
             return textBox;
         }
-        private TextBox InitTextBoxInt(bool readOnly)
+        public TextBox InitTextBoxInt(bool readOnly)
         {
             TextBox textBox = new TextBox();
             textBox.Anchor = AnchorStyles.Left | AnchorStyles.Right;
@@ -162,7 +162,7 @@ namespace Algorithm_Complexity_App {
         }
 
         // создаёт одномерный массив текстарий, вставляя каждую таблицу расположения
-        private TextBox[] InitTextBoxArray(TableLayoutPanel layoutPanel, int count, bool readOnly) {
+        public TextBox[] InitTextBoxArray(TableLayoutPanel layoutPanel, int count, bool readOnly) {
             layoutPanel.SuspendLayout();
 
             layoutPanel.Controls.Clear();
@@ -192,6 +192,7 @@ namespace Algorithm_Complexity_App {
             return result;
         }
 
+
         private int n;
         private int n2;
 
@@ -199,7 +200,7 @@ namespace Algorithm_Complexity_App {
         public double[]resultX;
         public double complexity = 0;
         public double middleComplexity;
-        public string cycles;
+        public List<int[]> cycles;
         private double transitionProbabilityFromZToOne;
         private double transitionProbabilityFromLastToK;
         private TextBox[,] matrixA;
@@ -265,23 +266,7 @@ namespace Algorithm_Complexity_App {
                     LinearSystem system = new LinearSystem(MatrixA, VectorB);
                     resultX = system.XVector;
                     middleComplexity = calculateComplexity(resultX, VectorX);
-                    // call DFS to mark the cycles 
-                    //graph.addEdge(1, 2);
-                    //graph.addEdge(2, 3);
-                    //graph.addEdge(3, 4);
-                    //graph.addEdge(4, 6);
-                    //graph.addEdge(4, 7);
-                    //graph.addEdge(5, 6);
-                    //graph.addEdge(3, 5);
-                    //graph.addEdge(7, 8);
-                    //graph.addEdge(6, 10);
-                    //graph.addEdge(5, 9);
-                    //graph.addEdge(10, 11);
-                    //graph.addEdge(11, 12);
-                    //graph.addEdge(11, 13);
-                    //graph.addEdge(12, 13);
-                    //graph.dfs_cycle(1, 0);
-                    cycles = graph.resultString;
+                    cycles = graph.detectedCycles;
                     ResultForm newForm = new ResultForm(this);
 
                     newForm.Show();
