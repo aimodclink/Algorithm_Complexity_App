@@ -101,12 +101,14 @@ namespace Algorithm_Complexity_App
         {
             Label minComplexityLB = new Label();
             Label maxComplexityLB = new Label();
+            minComplexityLB.AutoSize = true;
+            maxComplexityLB.AutoSize = true;
             var minComplexity = CalculateMinComplexity(f);
-            var maxComplexity = CalculateMinComplexity(f);
-            minComplexityLB.Text = "Минимальная трудоемкость: {}";
-            minComplexityLB.Text = "Максимальная трудоемкость:";
+            //var maxComplexity = CalculateMaxComplexity(f);
+            minComplexityLB.Text = $"Минимальная трудоемкость: {minComplexity}";
+            //maxComplexityLB.Text = $"Максимальная трудоемкость: {maxComplexity}";
             minMaxComplexityTableLayout.Controls.Add(minComplexityLB);
-            minMaxComplexityTableLayout.Controls.Add(maxComplexityLB);
+            //minMaxComplexityTableLayout.Controls.Add(maxComplexityLB);
         }
         
         double CalculateMinComplexity(MainForm f)
@@ -117,8 +119,11 @@ namespace Algorithm_Complexity_App
             List<int[]> allCycle = new List<int[]>();
             for (int e = 1; e < graph.NE-1; e++)
             {
-                int[] temp = new int[2] {graph.graph[e][0], graph.graph[e][1]};
-                allCycle.Add(temp);
+                if (graph.graph[e][0] < graph.graph[e][1])
+                {
+                    int[] temp = new int[2] { graph.graph[e][0], graph.graph[e][1] };
+                    allCycle.Add(temp);
+                }
             }
             fullCycles.Add(allCycle);
 
@@ -129,21 +134,25 @@ namespace Algorithm_Complexity_App
                 {
                     if (previousCycle.Count != 0)
                     {
-                        var indexOfLastElementOfPreviousCycle = fullcycle.IndexOf(previousCycle.Last());
+                        var LastElementOfPreviousCycle = previousCycle[previousCycle.Count-1][1];
                         foreach (var edge in previousCycle)
                         {
-                            fullcycle.Remove(edge);
+                            int firstindex1 = edge[0];
+                            int secondIndex1 = edge[1];
+                            List<int> listToRemove = new List<int> { firstindex1, secondIndex1 };
+                            fullcycle.RemoveAll(innerList => innerList.SequenceEqual(listToRemove));
                         }
-
+                        List<int> listToRemove1 = new List<int> { LastElementOfPreviousCycle, LastElementOfPreviousCycle+1};
+                        fullcycle.RemoveAll(innerList => innerList.SequenceEqual(listToRemove1));
                         int firstindex = previousCycle[0][0];
-                        int secondIndex = fullcycle[indexOfLastElementOfPreviousCycle + 1][0];
+                        int secondIndex = LastElementOfPreviousCycle+1;
                         fullcycle.Add(new int[] {firstindex, secondIndex});
                     }
 
                     int index = 0;
 
 
-                    double[] newVector = new double[fullcycle.Count];
+                    double[] newVector = new double[fullcycle.Count+1];
                     double firstElement = complexityVector[fullcycle[0][0]];
                     double A = firstElement;
                     var minComplexity = 0.00;
@@ -151,14 +160,15 @@ namespace Algorithm_Complexity_App
                     {
                         List<double> temp = new List<double>();
                         temp.Add(minComplexity);
-                        for (int j = i+1; j < fullcycle.Count; j++)
-                        {
-                            if (fullcycle[i][1] == fullcycle[j][1])
-                            {
-                                temp.Add(VectorX[fullcycle[i][0] - 1]);
-                                temp.Add(VectorX[fullcycle[j][0] - 1]);
-                            }
-                        }
+
+                        //for (int j = i+1; j < fullcycle.Count; j++)
+                        //{
+                        //    if (fullcycle[i][1] == fullcycle[j][1])
+                        //    {
+                        //        temp.Add(VectorX[fullcycle[i][0] - 1]);
+                        //        temp.Add(VectorX[fullcycle[j][0] - 1]);
+                        //    }
+                        //}
 
                         if (temp.Count > 2)
                         {
@@ -182,55 +192,66 @@ namespace Algorithm_Complexity_App
         {
 
             List<List<int[]>> fullCycles = findFullCyclesList(f);
-            List<List<int[]>> allCycles = new List<List<int[]>>();
             double maxComplexityForCycle = 0.00;
-            List<int[]> fullCycle = new List<int[]>();
-            for (int e = 0; e < graph.NE; e++)
+            List<int[]> allCycle = new List<int[]>();
+            for (int e = 1; e < graph.NE - 1; e++)
             {
-                int[] temp = new int[2] {graph.graph[e][0], graph.graph[e][1] };
-                fullCycle.Add(temp);
+                if (graph.graph[e][0] < graph.graph[e][1])
+                {
+                    int[] temp = new int[2] { graph.graph[e][0], graph.graph[e][1] };
+                    allCycle.Add(temp);
+                }
             }
-            allCycles.Add(fullCycle);
-
+            fullCycles.Add(allCycle);
 
             var complexityVector = VectorX;
             List<int[]> previousCycle = new List<int[]>();
 
             foreach (var fullcycle in fullCycles)
             {
-                if (previousCycle != null)
+                if (previousCycle.Count != 0)
                 {
-                    var indexOfLastElementOfPreviousCycle = fullcycle.IndexOf(previousCycle.Last());
+                    var indexOfLastElementOfPreviousCycle = fullcycle.IndexOf(previousCycle[previousCycle.Count - 1]);
                     foreach (var edge in previousCycle)
                     {
-                        fullcycle.Remove(edge);
+                        int firstindex1 = edge[0];
+                        int secondIndex1 = edge[1];
+                        List<int> listToRemove = new List<int> { firstindex1, secondIndex1 };
+                        fullcycle.RemoveAll(innerList => innerList.SequenceEqual(listToRemove));
                     }
 
                     int firstindex = previousCycle[0][0];
                     int secondIndex = fullcycle[indexOfLastElementOfPreviousCycle + 1][0];
-                    fullcycle.Add(new int[] {firstindex, secondIndex });
+                    fullcycle.Add(new int[] { firstindex, secondIndex });
                 }
 
                 int index = 0;
 
-                double[] newVector = new double[fullCycles.Count];
+
+                double[] newVector = new double[fullcycle.Count];
                 double firstElement = complexityVector[fullcycle[0][0]];
                 double A = firstElement;
-
+                var maxComplexity = 0.00;
                 for (int i = 0; i < newVector.Length; i++)
                 {
-                    var maxComplexity = 0.00;
                     List<double> temp = new List<double>();
-                    for (int j = i; j < fullcycle.Count; j++)
+                    temp.Add(maxComplexity);
+                    for (int j = i + 1; j < fullcycle.Count; j++)
                     {
                         if (fullcycle[i][1] == fullcycle[j][1])
                         {
                             temp.Add(VectorX[fullcycle[i][0] - 1]);
+                            temp.Add(VectorX[fullcycle[j][0] - 1]);
                         }
                     }
 
+                    if (temp.Count > 2)
+                    {
+                        maxComplexity = temp.Max();
+                    }
                     maxComplexity = temp.Max();
                     newVector[i] = maxComplexity + complexityVector[i];
+                    maxComplexity = newVector[i];
                 }
 
                 maxComplexityForCycle = newVector.Last() * double.Parse(maxComplexityTextBoxes[index].Text);
@@ -252,14 +273,17 @@ namespace Algorithm_Complexity_App
                 for (int i = 0; i < graph.NE; i++)
                 {
                     var firstEdgeElement = graph.graph[i][0];
-                    var secondEdgeElement = graph.graph[i][1];
+                    //var secondEdgeElement = graph.graph[i][1];
                     if (firstEdgeElement == cycle[0])
                     {
 
-                        for (int j = firstEdgeElement; j <= secondEdgeElement; j++)
+                        for (int j = cycle[0]; j <= cycle[1]; j++)
                         {
-                            int[] temp = new int[2] { graph.graph[j][0], graph.graph[j][1] };
-                            fullCycle.Add(temp);
+                            if (graph.graph[j][0] < graph.graph[j][1])
+                            {
+                                int[] temp = new int[2] { graph.graph[j][0], graph.graph[j][1] };
+                                fullCycle.Add(temp);
+                            }
                         }
                     }
                 }

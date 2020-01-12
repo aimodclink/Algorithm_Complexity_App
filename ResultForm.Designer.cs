@@ -105,13 +105,12 @@
             // minMaxComplexityTableLayout
             // 
             this.minMaxComplexityTableLayout.ColumnCount = 1;
-            this.minMaxComplexityTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.minMaxComplexityTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.minMaxComplexityTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.minMaxComplexityTableLayout.Location = new System.Drawing.Point(503, 188);
             this.minMaxComplexityTableLayout.Name = "minMaxComplexityTableLayout";
             this.minMaxComplexityTableLayout.RowCount = 2;
-            this.minMaxComplexityTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.minMaxComplexityTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.minMaxComplexityTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.minMaxComplexityTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.minMaxComplexityTableLayout.Size = new System.Drawing.Size(332, 323);
             this.minMaxComplexityTableLayout.TabIndex = 7;
             // 
