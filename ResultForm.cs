@@ -113,7 +113,8 @@ namespace Algorithm_Complexity_App
         
         double CalculateMinComplexity(MainForm f)
         {
-
+            try
+            {
             List<List<int[]>> fullCycles = findFullCyclesList(f);
             double minComplexityForCycle = 0.00;
             List<int[]> allCycle = new List<int[]>();
@@ -129,31 +130,47 @@ namespace Algorithm_Complexity_App
 
                 var complexityVector = VectorX;
                 List<int[]> previousCycle = new List<int[]>();
-
-                foreach (var fullcycle in fullCycles)
+                //List<int[]> previousCycle1 = new List<int[]>();
+                //List<List<int>> previosDeletedEdges = new List<List<int>>();
+                for(int k = 0; k<fullCycles.Count; k++)
                 {
                     if (previousCycle.Count != 0)
                     {
-                        var LastElementOfPreviousCycle = previousCycle[previousCycle.Count-1][1];
+                        //previousCycle1 = fullcycle;
+                        var LastElementOfPreviousCycle = previousCycle[previousCycle.Count - 1][1];
+
                         foreach (var edge in previousCycle)
                         {
                             int firstindex1 = edge[0];
                             int secondIndex1 = edge[1];
                             List<int> listToRemove = new List<int> { firstindex1, secondIndex1 };
-                            fullcycle.RemoveAll(innerList => innerList.SequenceEqual(listToRemove));
+                            //previosDeletedEdges.Add(listToRemove);
+                            fullCycles[k].RemoveAll(innerList => innerList.SequenceEqual(listToRemove));
+                            if (k + 1 < fullCycles.Count)
+                            {
+                                fullCycles[k + 1].RemoveAll(innerList => innerList.SequenceEqual(listToRemove));
+                            }
                         }
                         List<int> listToRemove1 = new List<int> { LastElementOfPreviousCycle, LastElementOfPreviousCycle+1};
-                        fullcycle.RemoveAll(innerList => innerList.SequenceEqual(listToRemove1));
+                        fullCycles[k].RemoveAll(innerList => innerList.SequenceEqual(listToRemove1));
+                        if (k + 1 < fullCycles.Count)
+                        {
+                            fullCycles[k+1].RemoveAll(innerList => innerList.SequenceEqual(listToRemove1));
+                        }
                         int firstindex = previousCycle[0][0];
                         int secondIndex = LastElementOfPreviousCycle+1;
-                        fullcycle.Add(new int[] {firstindex, secondIndex});
+                        fullCycles[k].Add(new int[] {firstindex, secondIndex});
+                        if (k + 1 < fullCycles.Count)
+                        {
+                            fullCycles[k+1].Add(new int[] { firstindex, secondIndex });
+                        }
                     }
 
                     int index = 0;
 
 
-                    double[] newVector = new double[fullcycle.Count+1];
-                    double firstElement = complexityVector[fullcycle[0][0]];
+                    double[] newVector = new double[fullCycles[k].Count+1];
+                    double firstElement = complexityVector[fullCycles[k][0][0]];
                     double A = firstElement;
                     var minComplexity = 0.00;
                     for (int i = 0; i < newVector.Length; i++)
@@ -180,13 +197,19 @@ namespace Algorithm_Complexity_App
                     }
 
                     minComplexityForCycle = newVector.Last() * double.Parse(minComplexityTextBoxes[index].Text);
-                    complexityVector[fullcycle[0][0]] = minComplexityForCycle;
+                    complexityVector[fullCycles[k][0][0]] = minComplexityForCycle;
                     index++;
-                    previousCycle = fullcycle;
+                    previousCycle = fullCycles[k];
 
                 }
 
                 return minComplexityForCycle;
+            }
+            catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
         }
         double CalculateMaxComplexity(MainForm f)
         {
