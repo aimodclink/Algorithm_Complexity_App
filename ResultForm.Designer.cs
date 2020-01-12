@@ -58,7 +58,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(259, 21);
+            this.label3.Location = new System.Drawing.Point(511, 21);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(127, 13);
             this.label3.TabIndex = 2;
@@ -67,7 +67,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(402, 21);
+            this.label4.Location = new System.Drawing.Point(644, 21);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(0, 13);
             this.label4.TabIndex = 3;
@@ -93,13 +93,12 @@
             // cycleTableLayoutPanel
             // 
             this.cycleTableLayoutPanel.ColumnCount = 1;
-            this.cycleTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.cycleTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.cycleTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.cycleTableLayoutPanel.Location = new System.Drawing.Point(151, 188);
             this.cycleTableLayoutPanel.Name = "cycleTableLayoutPanel";
             this.cycleTableLayoutPanel.RowCount = 2;
-            this.cycleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.cycleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.cycleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.cycleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.cycleTableLayoutPanel.Size = new System.Drawing.Size(332, 323);
             this.cycleTableLayoutPanel.TabIndex = 6;
             // 

@@ -13,12 +13,15 @@ namespace Algorithm_Complexity_App
 
     public partial class ResultForm : Form
     {
+        private MainForm f;
         private string minComplexity;
         private string maxComplexity;
         private string resultString;
+        private List<int[]> cycles;
+        private double[] VectorX;
+        private Graph graph;
         private List<TextBox> minComplexityTextBoxes = new List<TextBox>();
         private List<TextBox> maxComplexityTextBoxes = new List<TextBox>();
-
         public ResultForm()
         {
             InitializeComponent();
@@ -26,6 +29,10 @@ namespace Algorithm_Complexity_App
 
         public ResultForm(MainForm f)
         {
+            f = f;
+            graph = f.graph;
+            cycles = f.cycles;
+            VectorX = f.VectorX;
             int number = 1;
             InitializeComponent();
             foreach (var x in f.resultX)
@@ -52,7 +59,7 @@ namespace Algorithm_Complexity_App
                     minCountOfCycleRepeatLB.AutoSize = true;
                     maxCountOfCycleRepeatLB.AutoSize = true;
                     cycleLB.Text = $"Цикл: {cycle[0]}-{cycle[1]}";
-                    double mediumCountOfCycleRepeat = CalculateMediumCountOfCycleRepeat(f, cycle[1] - 1, cycle[0] - 1);
+                    double mediumCountOfCycleRepeat = CalculateMediumCountOfCycleRepeat(f, cycle[0] - 1, cycle[1] - 1);
                     mediumCountOfCycleRepeatLB.Text = $"Среднее число повторений: {mediumCountOfCycleRepeat}";
                     minCountOfCycleRepeatLB.Text = "Введите минимальное число повторений:";
                     maxCountOfCycleRepeatLB.Text = "Введите максимальное число повторений:";
@@ -94,35 +101,33 @@ namespace Algorithm_Complexity_App
         {
             Label minComplexityLB = new Label();
             Label maxComplexityLB = new Label();
-
-            //minComplexityLB
-            minComplexityLB.Text = "Минимальная трудоемкость:";
+            var minComplexity = CalculateMinComplexity(f);
+            var maxComplexity = CalculateMinComplexity(f);
+            minComplexityLB.Text = "Минимальная трудоемкость: {}";
             minComplexityLB.Text = "Максимальная трудоемкость:";
             minMaxComplexityTableLayout.Controls.Add(minComplexityLB);
             minMaxComplexityTableLayout.Controls.Add(maxComplexityLB);
         }
         
-        void CalculateMinComplexity(MainForm f)
+        double CalculateMinComplexity(MainForm f)
         {
 
             List<List<int[]>> fullCycles = findFullCyclesList(f);
-            List<List<int[]>> allCycles = new List<List<int[]>>();
-
-            List<int[]> fullCycle = new List<int[]>();
-            for (int e = 0; e < f.graph.NE; e++)
+            double minComplexityForCycle = 0.00;
+            List<int[]> allCycle = new List<int[]>();
+            for (int e = 1; e < graph.NE-1; e++)
             {
-                int[] temp = new int[2] {f.graph.graph[e][0], f.graph.graph[e][1]};
-                fullCycle.Add(temp);
+                int[] temp = new int[2] {graph.graph[e][0], graph.graph[e][1]};
+                allCycle.Add(temp);
             }
-            allCycles.Add(fullCycle);
-    
+            fullCycles.Add(allCycle);
 
-                var complexityVector = f.VectorX;
+                var complexityVector = VectorX;
                 List<int[]> previousCycle = new List<int[]>();
 
                 foreach (var fullcycle in fullCycles)
                 {
-                    if (previousCycle != null)
+                    if (previousCycle.Count != 0)
                     {
                         var indexOfLastElementOfPreviousCycle = fullcycle.IndexOf(previousCycle.Last());
                         foreach (var edge in previousCycle)
@@ -136,26 +141,32 @@ namespace Algorithm_Complexity_App
                     }
 
                     int index = 0;
-                    double minComplexityForCycle = 0.00;
 
-                    double[] newVector = new double[fullCycles.Count];
+
+                    double[] newVector = new double[fullcycle.Count];
                     double firstElement = complexityVector[fullcycle[0][0]];
                     double A = firstElement;
-
+                    var minComplexity = 0.00;
                     for (int i = 0; i < newVector.Length; i++)
                     {
-                        var minComplexity = 0.00;
                         List<double> temp = new List<double>();
-                        for (int j = i; j < fullcycle.Count; j++)
+                        temp.Add(minComplexity);
+                        for (int j = i+1; j < fullcycle.Count; j++)
                         {
                             if (fullcycle[i][1] == fullcycle[j][1])
                             {
-                                temp.Add(f.VectorX[fullcycle[i][0] - 1]);
+                                temp.Add(VectorX[fullcycle[i][0] - 1]);
+                                temp.Add(VectorX[fullcycle[j][0] - 1]);
                             }
                         }
 
+                        if (temp.Count > 2)
+                        {
+                            minComplexity = temp.Min();
+                        }
                         minComplexity = temp.Min();
                         newVector[i] = minComplexity + complexityVector[i];
+                        minComplexity = newVector[i];
                     }
 
                     minComplexityForCycle = newVector.Last() * double.Parse(minComplexityTextBoxes[index].Text);
@@ -164,24 +175,90 @@ namespace Algorithm_Complexity_App
                     previousCycle = fullcycle;
 
                 }
+
+                return minComplexityForCycle;
+        }
+        double CalculateMaxComplexity(MainForm f)
+        {
+
+            List<List<int[]>> fullCycles = findFullCyclesList(f);
+            List<List<int[]>> allCycles = new List<List<int[]>>();
+            double maxComplexityForCycle = 0.00;
+            List<int[]> fullCycle = new List<int[]>();
+            for (int e = 0; e < graph.NE; e++)
+            {
+                int[] temp = new int[2] {graph.graph[e][0], graph.graph[e][1] };
+                fullCycle.Add(temp);
             }
+            allCycles.Add(fullCycle);
+
+
+            var complexityVector = VectorX;
+            List<int[]> previousCycle = new List<int[]>();
+
+            foreach (var fullcycle in fullCycles)
+            {
+                if (previousCycle != null)
+                {
+                    var indexOfLastElementOfPreviousCycle = fullcycle.IndexOf(previousCycle.Last());
+                    foreach (var edge in previousCycle)
+                    {
+                        fullcycle.Remove(edge);
+                    }
+
+                    int firstindex = previousCycle[0][0];
+                    int secondIndex = fullcycle[indexOfLastElementOfPreviousCycle + 1][0];
+                    fullcycle.Add(new int[] {firstindex, secondIndex });
+                }
+
+                int index = 0;
+
+                double[] newVector = new double[fullCycles.Count];
+                double firstElement = complexityVector[fullcycle[0][0]];
+                double A = firstElement;
+
+                for (int i = 0; i < newVector.Length; i++)
+                {
+                    var maxComplexity = 0.00;
+                    List<double> temp = new List<double>();
+                    for (int j = i; j < fullcycle.Count; j++)
+                    {
+                        if (fullcycle[i][1] == fullcycle[j][1])
+                        {
+                            temp.Add(VectorX[fullcycle[i][0] - 1]);
+                        }
+                    }
+
+                    maxComplexity = temp.Max();
+                    newVector[i] = maxComplexity + complexityVector[i];
+                }
+
+                maxComplexityForCycle = newVector.Last() * double.Parse(maxComplexityTextBoxes[index].Text);
+                complexityVector[fullcycle[0][0]] = maxComplexityForCycle;
+                index++;
+                previousCycle = fullcycle;
+
+            }
+
+            return maxComplexityForCycle;
+        }
 
         List<List<int[]>> findFullCyclesList(MainForm f)
         {
             List<List<int[]>> fullCycles = new List<List<int[]>>();
-            foreach (var cycle in f.cycles)
+            foreach (var cycle in cycles)
             {
                 List<int[]> fullCycle = new List<int[]>();
-                for (int i = 0; i < f.graph.NE; i++)
+                for (int i = 0; i < graph.NE; i++)
                 {
-                    var firstEdgeElement = f.graph.graph[i][0];
-                    var secondEdgeElement = f.graph.graph[i][1];
+                    var firstEdgeElement = graph.graph[i][0];
+                    var secondEdgeElement = graph.graph[i][1];
                     if (firstEdgeElement == cycle[0])
                     {
 
                         for (int j = firstEdgeElement; j <= secondEdgeElement; j++)
                         {
-                            int[] temp = new int[2] { f.graph.graph[j][0], f.graph.graph[j][1] };
+                            int[] temp = new int[2] { graph.graph[j][0], graph.graph[j][1] };
                             fullCycle.Add(temp);
                         }
                     }
