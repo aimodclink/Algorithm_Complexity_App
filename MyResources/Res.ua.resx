@@ -118,46 +118,49 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value>О программе</value>
+    <value>Про програму</value>
   </data>
   <data name="Caculate_middle_complexity" xml:space="preserve">
-    <value>Решить</value>
+    <value>Вирішити</value>
   </data>
   <data name="English_menu" xml:space="preserve">
     <value>English</value>
   </data>
   <data name="Exit" xml:space="preserve">
-    <value>Выход</value>
+    <value>Вихід</value>
   </data>
   <data name="exit_caption_string" xml:space="preserve">
-    <value>Выход: Да или Нет?</value>
+    <value>Exit : YES or NO?</value>
   </data>
   <data name="Exit_menu" xml:space="preserve">
     <value>&amp;Exit</value>
   </data>
   <data name="exit_text_string" xml:space="preserve">
-    <value>Вы хотите выйти из программы?</value>
+    <value>Do you want to exit program?</value>
   </data>
   <data name="File_menu" xml:space="preserve">
-    <value>Файл</value>
+    <value>&amp;File</value>
   </data>
   <data name="Fill_edges" xml:space="preserve">
-    <value>Заполните трудоемкости вершин</value>
+    <value>Заповніть ймовірності дуг</value>
   </data>
   <data name="Fill_vertex" xml:space="preserve">
-    <value>Заполните вероятности переходов</value>
+    <value>Заповніть трудоміскості вершин</value>
   </data>
   <data name="Input_edges" xml:space="preserve">
-    <value>Введите количество дуг:</value>
+    <value>Введіть кількість дуг:</value>
   </data>
   <data name="Input_vertex" xml:space="preserve">
-    <value>Введите количество вершин:</value>
+    <value>Введіть кількість вершин:</value>
   </data>
   <data name="Language_menu" xml:space="preserve">
-    <value>Языки</value>
+    <value>Мови</value>
   </data>
   <data name="MainForm_text" xml:space="preserve">
-    <value>Программа для расчета трудоемкости алгоритма</value>
+    <value>Програма для розрахунку трудоміскості алгоритму</value>
+  </data>
+  <data name="Roots" xml:space="preserve">
+    <value />
   </data>
   <data name="Rus_menu" xml:space="preserve">
     <value>Русский</value>

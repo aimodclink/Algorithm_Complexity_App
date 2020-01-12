@@ -22,8 +22,8 @@ namespace Algorithm_Complexity_App {
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            rusToolStripMenuItem.Checked = false;    //default language is english
-            englishToolStripMenuItem.Checked = true;
+            rusToolStripMenuItem.Checked = true;    //default language is english
+            englishToolStripMenuItem.Checked = false;
 
             res_manager = new ResourceManager("Algorithm_Complexity_App.MyResources.Res", typeof(MainForm).Assembly);
             //switch to eng
@@ -38,10 +38,12 @@ namespace Algorithm_Complexity_App {
             if (rusToolStripMenuItem.Checked == true) //switch to english
             {
                 rusToolStripMenuItem.Checked = false;
+                ukrtoolStripMenuItem.Checked = false;
                 englishToolStripMenuItem.Checked = true;
             }
             else
             {
+                ukrtoolStripMenuItem.Checked = false;
                 rusToolStripMenuItem.Checked = true;
                 englishToolStripMenuItem.Checked = false;
             }
@@ -64,6 +66,10 @@ namespace Algorithm_Complexity_App {
             {
                 culture = CultureInfo.CreateSpecificCulture("ru");        //create culture for ru
             }
+            else if (ukrtoolStripMenuItem.Checked == true)
+            {
+                culture = CultureInfo.CreateSpecificCulture("ua");
+            }
             else
             {
                 culture = CultureInfo.CreateSpecificCulture("en");        //create culture for en
@@ -77,9 +83,16 @@ namespace Algorithm_Complexity_App {
 
             infoToolStripMenuItem.Text = res_manager.GetString("File_menu", culture);
             exitToolStripMenuItem.Text = res_manager.GetString("Exit_menu", culture);
+            labelInputEdges.Text= res_manager.GetString("Input_edges", culture);
+            labelInputVertex.Text = res_manager.GetString("Input_vertex", culture);
 
             languagesToolStripMenuItem.Text = res_manager.GetString("Language_menu", culture);
             englishToolStripMenuItem.Text = res_manager.GetString("English_menu", culture);
+            CaculateMiddleComplexityBT.Text= res_manager.GetString("Caculate_middle_complexity", culture);
+            FillEdgesLB.Text= res_manager.GetString("Fill_edges", culture);
+            FillVertexLB.Text = res_manager.GetString("Fill_vertex", culture);
+            aboutToolStripMenuItem.Text= res_manager.GetString("About", culture);
+            exitToolStripMenuItem.Text= res_manager.GetString("Exit", culture);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -313,8 +326,6 @@ namespace Algorithm_Complexity_App {
 
                             matrix_a[jindex - 1, iindex - 1] = value;
 
-                            //graph.addEdge(iindex, ji÷dex);
-
                         }
                         else
                         {
@@ -405,9 +416,28 @@ namespace Algorithm_Complexity_App {
             N2 = (int)numericUpDown2.Value;
         }
 
-        private void TableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        private void Label1_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void UkrtoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ukrtoolStripMenuItem.Checked == true)    //in french, switch to default language
+            {
+                ukrtoolStripMenuItem.Checked = false;
+                rusToolStripMenuItem.Checked = false;
+                englishToolStripMenuItem.Checked = true;        //default language
+            }
+            else            //current language is not french, switch french
+            {
+                ukrtoolStripMenuItem.Checked = true;
+                rusToolStripMenuItem.Checked = false;
+                englishToolStripMenuItem.Checked = false;
+            }
+            //switch language
+            switch_language();
+        }
+
     }
 }

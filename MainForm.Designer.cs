@@ -35,6 +35,7 @@ namespace Algorithm_Complexity_App
             this.languagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ukrtoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.layoutMatrixA = new System.Windows.Forms.TableLayoutPanel();
@@ -42,13 +43,13 @@ namespace Algorithm_Complexity_App
             this.layoutVectorB = new System.Windows.Forms.TableLayoutPanel();
             this.layoutVectorU = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelInputEdges = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
+            this.labelInputVertex = new System.Windows.Forms.Label();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.CaculateMiddleComplexityBT = new System.Windows.Forms.Button();
+            this.FillVertexLB = new System.Windows.Forms.Label();
+            this.FillEdgesLB = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -63,7 +64,7 @@ namespace Algorithm_Complexity_App
             this.languagesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(569, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(580, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -93,6 +94,7 @@ namespace Algorithm_Complexity_App
             // languagesToolStripMenuItem
             // 
             this.languagesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ukrtoolStripMenuItem,
             this.englishToolStripMenuItem,
             this.rusToolStripMenuItem});
             this.languagesToolStripMenuItem.Name = "languagesToolStripMenuItem";
@@ -102,20 +104,29 @@ namespace Algorithm_Complexity_App
             // englishToolStripMenuItem
             // 
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
-            this.englishToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.englishToolStripMenuItem.Text = "English";
+            this.englishToolStripMenuItem.Click += new System.EventHandler(this.englishToolStripMenuItem_Click);
             // 
             // rusToolStripMenuItem
             // 
             this.rusToolStripMenuItem.Name = "rusToolStripMenuItem";
-            this.rusToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.rusToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rusToolStripMenuItem.Text = "Русский";
+            this.rusToolStripMenuItem.Click += new System.EventHandler(this.rusToolStripMenuItem_Click);
+            // 
+            // ukrtoolStripMenuItem
+            // 
+            this.ukrtoolStripMenuItem.Name = "ukrtoolStripMenuItem";
+            this.ukrtoolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ukrtoolStripMenuItem.Text = "Українська";
+            this.ukrtoolStripMenuItem.Click += new System.EventHandler(this.UkrtoolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
             this.statusStrip1.Location = new System.Drawing.Point(0, 369);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(569, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(580, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -131,8 +142,8 @@ namespace Algorithm_Complexity_App
             this.tableLayoutPanel1.Controls.Add(this.layoutVectorB, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.layoutVectorU, 3, 2);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.FillVertexLB, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.FillEdgesLB, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -141,7 +152,7 @@ namespace Algorithm_Complexity_App
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(569, 345);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(580, 345);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // layoutMatrixA
@@ -153,7 +164,7 @@ namespace Algorithm_Complexity_App
             this.layoutMatrixA.Name = "layoutMatrixA";
             this.layoutMatrixA.RowCount = 1;
             this.layoutMatrixA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.layoutMatrixA.Size = new System.Drawing.Size(249, 291);
+            this.layoutMatrixA.Size = new System.Drawing.Size(254, 291);
             this.layoutMatrixA.TabIndex = 0;
             // 
             // layoutVectorX
@@ -162,11 +173,11 @@ namespace Algorithm_Complexity_App
             this.layoutVectorX.ColumnCount = 1;
             this.layoutVectorX.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.layoutVectorX.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.layoutVectorX.Location = new System.Drawing.Point(258, 51);
+            this.layoutVectorX.Location = new System.Drawing.Point(263, 51);
             this.layoutVectorX.Name = "layoutVectorX";
             this.layoutVectorX.RowCount = 1;
             this.layoutVectorX.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.layoutVectorX.Size = new System.Drawing.Size(290, 291);
+            this.layoutVectorX.Size = new System.Drawing.Size(296, 291);
             this.layoutVectorX.TabIndex = 1;
             // 
             // layoutVectorB
@@ -174,7 +185,7 @@ namespace Algorithm_Complexity_App
             this.layoutVectorB.ColumnCount = 1;
             this.layoutVectorB.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.layoutVectorB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.layoutVectorB.Location = new System.Drawing.Point(554, 51);
+            this.layoutVectorB.Location = new System.Drawing.Point(565, 51);
             this.layoutVectorB.Name = "layoutVectorB";
             this.layoutVectorB.RowCount = 1;
             this.layoutVectorB.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -187,7 +198,7 @@ namespace Algorithm_Complexity_App
             this.layoutVectorU.ColumnCount = 1;
             this.layoutVectorU.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.layoutVectorU.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.layoutVectorU.Location = new System.Drawing.Point(562, 51);
+            this.layoutVectorU.Location = new System.Drawing.Point(573, 51);
             this.layoutVectorU.Name = "layoutVectorU";
             this.layoutVectorU.RowCount = 1;
             this.layoutVectorU.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -198,26 +209,27 @@ namespace Algorithm_Complexity_App
             // 
             this.flowLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this.flowLayoutPanel1, 4);
-            this.flowLayoutPanel1.Controls.Add(this.label1);
+            this.flowLayoutPanel1.Controls.Add(this.labelInputEdges);
             this.flowLayoutPanel1.Controls.Add(this.numericUpDown1);
-            this.flowLayoutPanel1.Controls.Add(this.label6);
+            this.flowLayoutPanel1.Controls.Add(this.labelInputVertex);
             this.flowLayoutPanel1.Controls.Add(this.numericUpDown2);
-            this.flowLayoutPanel1.Controls.Add(this.button1);
+            this.flowLayoutPanel1.Controls.Add(this.CaculateMiddleComplexityBT);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(563, 29);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(574, 29);
             this.flowLayoutPanel1.TabIndex = 4;
             // 
-            // label1
+            // labelInputEdges
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(129, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Введите количество дуг";
+            this.labelInputEdges.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.labelInputEdges.AutoSize = true;
+            this.labelInputEdges.Location = new System.Drawing.Point(3, 8);
+            this.labelInputEdges.Name = "labelInputEdges";
+            this.labelInputEdges.Size = new System.Drawing.Size(129, 13);
+            this.labelInputEdges.TabIndex = 0;
+            this.labelInputEdges.Text = "Введите количество дуг";
+            this.labelInputEdges.Click += new System.EventHandler(this.Label1_Click);
             // 
             // numericUpDown1
             // 
@@ -244,15 +256,15 @@ namespace Algorithm_Complexity_App
             this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             this.numericUpDown1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NumericUpDown1_KeyDown);
             // 
-            // label6
+            // labelInputVertex
             // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(231, 8);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(151, 13);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "Введите количество вершин";
+            this.labelInputVertex.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.labelInputVertex.AutoSize = true;
+            this.labelInputVertex.Location = new System.Drawing.Point(231, 8);
+            this.labelInputVertex.Name = "labelInputVertex";
+            this.labelInputVertex.Size = new System.Drawing.Size(151, 13);
+            this.labelInputVertex.TabIndex = 3;
+            this.labelInputVertex.Text = "Введите количество вершин";
             // 
             // numericUpDown2
             // 
@@ -279,49 +291,49 @@ namespace Algorithm_Complexity_App
             this.numericUpDown2.ValueChanged += new System.EventHandler(this.NumericUpDown2_ValueChanged);
             this.numericUpDown2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericUpDown2_KeyPress);
             // 
-            // button1
+            // CaculateMiddleComplexityBT
             // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.button1.Location = new System.Drawing.Point(481, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Решить";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.CaculateMiddleComplexityBT.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.CaculateMiddleComplexityBT.Location = new System.Drawing.Point(481, 3);
+            this.CaculateMiddleComplexityBT.Name = "CaculateMiddleComplexityBT";
+            this.CaculateMiddleComplexityBT.Size = new System.Drawing.Size(75, 23);
+            this.CaculateMiddleComplexityBT.TabIndex = 2;
+            this.CaculateMiddleComplexityBT.Text = "Решить";
+            this.CaculateMiddleComplexityBT.UseVisualStyleBackColor = true;
+            this.CaculateMiddleComplexityBT.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label2
+            // FillVertexLB
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(315, 35);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(176, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Заполните трудоемкости вершин";
+            this.FillVertexLB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.FillVertexLB.AutoSize = true;
+            this.FillVertexLB.Location = new System.Drawing.Point(323, 35);
+            this.FillVertexLB.Name = "FillVertexLB";
+            this.FillVertexLB.Size = new System.Drawing.Size(176, 13);
+            this.FillVertexLB.TabIndex = 5;
+            this.FillVertexLB.Text = "Заполните трудоемкости вершин";
             // 
-            // label3
+            // FillEdgesLB
             // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(35, 35);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(184, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Заполните вероятности переходов";
+            this.FillEdgesLB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.FillEdgesLB.AutoSize = true;
+            this.FillEdgesLB.Location = new System.Drawing.Point(38, 35);
+            this.FillEdgesLB.Name = "FillEdgesLB";
+            this.FillEdgesLB.Size = new System.Drawing.Size(184, 13);
+            this.FillEdgesLB.TabIndex = 6;
+            this.FillEdgesLB.Text = "Заполните вероятности переходов";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(569, 391);
+            this.ClientSize = new System.Drawing.Size(580, 391);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Решение СЛАУ методом Гаусса";
+            this.Text = "Algorithm Complexity App";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -346,19 +358,20 @@ namespace Algorithm_Complexity_App
         private System.Windows.Forms.TableLayoutPanel layoutVectorB;
         private System.Windows.Forms.TableLayoutPanel layoutVectorU;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelInputEdges;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button CaculateMiddleComplexityBT;
+        private System.Windows.Forms.Label FillVertexLB;
+        private System.Windows.Forms.Label FillEdgesLB;
         private System.Windows.Forms.ToolStripMenuItem infoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem languagesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rusToolStripMenuItem;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label labelInputVertex;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.ToolStripMenuItem ukrtoolStripMenuItem;
     }
 }
 

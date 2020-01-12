@@ -69,7 +69,7 @@ namespace Algorithm_Complexity_App
             this.textBoxDescription.Size = new System.Drawing.Size(271, 214);
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
-            this.textBoxDescription.Text = "....";
+            this.textBoxDescription.Text = resources.GetString("textBoxDescription.Text");
             // 
             // okButton
             // 
