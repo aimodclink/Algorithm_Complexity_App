@@ -68,7 +68,7 @@ namespace Algorithm_Complexity_App {
             }
             else if (ukrtoolStripMenuItem.Checked == true)
             {
-                culture = CultureInfo.CreateSpecificCulture("ua");
+                culture = CultureInfo.CreateSpecificCulture("uk");
             }
             else
             {

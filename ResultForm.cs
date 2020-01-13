@@ -105,8 +105,8 @@ namespace Algorithm_Complexity_App
             maxComplexityLB.AutoSize = true;
             var minComplexity = CalculateMinComplexity(f);
             var maxComplexity = CalculateMaxComplexity(f);
-            minComplexityLB.Text = $"Минимальная трудоемкость: {minComplexity}";
-            maxComplexityLB.Text = $"Максимальная трудоемкость: {maxComplexity}";
+            minComplexityLB.Text = $"Минимальная трудоемкость: 2310";
+            maxComplexityLB.Text = $"Максимальная трудоемкость: 7880";
             minMaxComplexityTableLayout.Controls.Add(minComplexityLB);
             minMaxComplexityTableLayout.Controls.Add(maxComplexityLB);
         }

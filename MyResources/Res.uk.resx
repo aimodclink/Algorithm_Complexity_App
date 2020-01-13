@@ -133,13 +133,13 @@
     <value>Exit : YES or NO?</value>
   </data>
   <data name="Exit_menu" xml:space="preserve">
-    <value>&amp;Exit</value>
+    <value>&amp;Вихід</value>
   </data>
   <data name="exit_text_string" xml:space="preserve">
     <value>Do you want to exit program?</value>
   </data>
   <data name="File_menu" xml:space="preserve">
-    <value>&amp;File</value>
+    <value>&amp;Файл</value>
   </data>
   <data name="Fill_edges" xml:space="preserve">
     <value>Заповніть ймовірності дуг</value>
